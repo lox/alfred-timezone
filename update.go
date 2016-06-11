@@ -26,8 +26,6 @@ type geonamesRecord struct {
 func parseRecord(line string) geonamesRecord {
 	tokens := strings.Split(line, string('\t'))
 
-	log.Printf("%+v", tokens)
-
 	// The main 'geoname' table has the following fields :
 	// ---------------------------------------------------
 	// geonameid         : integer id of record in geonames database
