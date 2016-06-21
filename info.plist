@@ -17,6 +17,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>CF16946F-5549-4D50-A0FB-EFEE63A28F89</key>
@@ -28,6 +30,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>EC294EDC-565E-48AE-BF28-19E2B1C649C0</key>
@@ -39,6 +43,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -49,20 +55,27 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Timezone</string>
+	<string>Timezone Search</string>
 	<key>objects</key>
 	<array>
 		<dict>
+			<key>config</key>
+			<dict>
+				<key>largetypetext</key>
+				<string>{query}</string>
+			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.largetype</string>
 			<key>uid</key>
 			<string>B0D9FBEB-ADA5-421C-B72E-1FFF7512639D</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -80,7 +93,13 @@
 				<key>runningsubtext</key>
 				<string>Searching</string>
 				<key>script</key>
-				<string>./alfred-timezone search "{query}"</string>
+				<string>./alfred-timezone search --alfred "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
 				<key>title</key>
 				<string>Searching</string>
 				<key>type</key>
@@ -93,7 +112,7 @@
 			<key>uid</key>
 			<string>EC294EDC-565E-48AE-BF28-19E2B1C649C0</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -102,11 +121,7 @@
 				<false/>
 				<key>onlyshowifquerypopulated</key>
 				<true/>
-				<key>output</key>
-				<integer>0</integer>
 				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
 				<false/>
 				<key>text</key>
 				<string>{query}</string>
@@ -118,7 +133,7 @@
 			<key>uid</key>
 			<string>6A3A4092-8D62-4F7D-9684-8FDF7BCDA6B3</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -129,6 +144,10 @@
 				<integer>102</integer>
 				<key>script</key>
 				<string>./alfred-github-jump update</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -137,7 +156,7 @@
 			<key>uid</key>
 			<string>CF16946F-5549-4D50-A0FB-EFEE63A28F89</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -146,6 +165,8 @@
 				<integer>2</integer>
 				<key>keyword</key>
 				<string>tz &gt; update</string>
+				<key>subtext</key>
+				<string></string>
 				<key>text</key>
 				<string>Update Timezone Data</string>
 				<key>withspace</key>
@@ -156,7 +177,7 @@
 			<key>uid</key>
 			<string>550D97C0-A2B2-4A54-A472-F2AA760D121C</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -165,26 +186,36 @@
 	<dict>
 		<key>550D97C0-A2B2-4A54-A472-F2AA760D121C</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>300</real>
 		</dict>
 		<key>6A3A4092-8D62-4F7D-9684-8FDF7BCDA6B3</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>180</real>
 		</dict>
 		<key>B0D9FBEB-ADA5-421C-B72E-1FFF7512639D</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>60</real>
 		</dict>
 		<key>CF16946F-5549-4D50-A0FB-EFEE63A28F89</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
 			<real>300</real>
 		</dict>
 		<key>EC294EDC-565E-48AE-BF28-19E2B1C649C0</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>180</real>
 		</dict>

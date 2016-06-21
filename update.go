@@ -13,17 +13,17 @@ import (
 	"strings"
 )
 
-type geonamesRecord struct {
+type City struct {
 	ID                  string
-	Name, ASCIIName     string
+	Name                string
 	AlternateNames      []string
 	Latitude, Longitude string
 	CountryCode         string
 	TimezoneID          string
-	Population          *big.Int
+	Population          int64
 }
 
-func parseRecord(line string) geonamesRecord {
+func parseRecord(line string) City {
 	tokens := strings.Split(line, string('\t'))
 
 	// The main 'geoname' table has the following fields :
@@ -51,16 +51,15 @@ func parseRecord(line string) geonamesRecord {
 	pop := new(big.Int)
 	pop.SetString(tokens[14], 10)
 
-	return geonamesRecord{
+	return City{
 		ID:             tokens[0],
-		Name:           tokens[1],
-		ASCIIName:      tokens[2],
+		Name:           tokens[2],
 		AlternateNames: strings.Split(tokens[3], ","),
 		Latitude:       tokens[4],
 		Longitude:      tokens[5],
 		CountryCode:    tokens[8],
 		TimezoneID:     tokens[17],
-		Population:     pop,
+		Population:     pop.Int64(),
 	}
 }
 
@@ -69,8 +68,8 @@ type updateCommandInput struct {
 	MinPopulation int64
 }
 
-func (u updateCommandInput) ReadCities(f func(r geonamesRecord) error) error {
-	log.Printf("Reading cities from %s", u.CitySourceURI)
+func (u updateCommandInput) ReadCities(f func(r City) error) error {
+	log.Printf("Opening %s", u.CitySourceURI)
 
 	var zipr *zip.Reader
 
@@ -123,7 +122,7 @@ func (u updateCommandInput) ReadCities(f func(r geonamesRecord) error) error {
 }
 
 func updateCommand(opts updateCommandInput) {
-	db, err := OpenDB()
+	db, err := openDB()
 	if err != nil {
 		fmt.Println("Error", err)
 		os.Exit(1)
@@ -137,8 +136,8 @@ func updateCommand(opts updateCommandInput) {
 
 	var counter int64
 
-	err = opts.ReadCities(func(record geonamesRecord) error {
-		if record.Population.Int64() < opts.MinPopulation {
+	err = opts.ReadCities(func(city City) error {
+		if city.Population < opts.MinPopulation {
 			return nil
 		}
 
@@ -148,12 +147,15 @@ func updateCommand(opts updateCommandInput) {
 				(id, name, country, timezone, population)
 			VALUES
 				(?, ?, ?, ?, ?)`,
-			record.ID,
-			record.ASCIIName,
-			record.CountryCode,
-			record.TimezoneID,
-			record.Population.String(),
+			city.ID,
+			city.Name,
+			city.CountryCode,
+			city.TimezoneID,
+			city.Population,
 		)
+		if err != nil {
+			return err
+		}
 
 		return err
 	})

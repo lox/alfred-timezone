@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS timezone (
     population bigint
 )`
 
-func OpenDB() (*sql.DB, error) {
+func openDB() (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", "./sqlite.db")
 	if err != nil {
 		return nil, err
