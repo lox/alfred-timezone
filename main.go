@@ -4,7 +4,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"os/exec"
 
 	"gopkg.in/alecthomas/kingpin.v2"
 )
@@ -19,9 +18,9 @@ func main() {
 		search              = kingpin.Command("search", "Search timezones")
 		searchFilters       = search.Arg("filter", "Filter strings").Strings()
 		searchAlfred        = search.Flag("alfred", "Results as Alfred XML rather than a list").Bool()
-		update              = kingpin.Command("update", "Updates repositories from Github")
+		update              = kingpin.Command("update", "Updates repositories from geonames")
 		updateSource        = update.Flag("source", "Either a file or a url of a geonames dump file").Default(defaultGeonamesDump).String()
-		updateMinPopulation = update.Flag("min-population", "A minimum population to require for cities").Int64()
+		updateMinPopulation = update.Flag("min-population", "A minimum population to require for cities").Default("50000").Int64()
 	)
 
 	cmd := kingpin.Parse()
@@ -49,13 +48,4 @@ func main() {
 
 		searchCommand(out, *searchFilters)
 	}
-}
-
-func backgroundUpdate() error {
-	cmd := exec.Command(os.Args[0], "update")
-	if err := cmd.Start(); err != nil {
-		return err
-	}
-	log.Printf("Background pid %#v", cmd.Process.Pid)
-	return nil
 }

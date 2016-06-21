@@ -6,6 +6,10 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+const (
+	databasePath = "./sqlite.db"
+)
+
 var createSql = `
 CREATE TABLE IF NOT EXISTS timezone (
     id INT PRIMARY KEY,

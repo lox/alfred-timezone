@@ -86,16 +86,20 @@ func (u updateCommandInput) ReadCities(f func(r City) error) error {
 		}
 
 		zipr, err = zip.NewReader(bytes.NewReader(b), int64(len(b)))
-	}
+		if err != nil {
+			return err
+		}
 
-	// assume it's a file otherwise
-	fr, err := zip.OpenReader(u.CitySourceURI)
-	if err != nil {
-		return err
-	}
+	} else {
+		// assume it's a file otherwise
+		fr, err := zip.OpenReader(u.CitySourceURI)
+		if err != nil {
+			return err
+		}
 
-	defer fr.Close()
-	zipr = &fr.Reader
+		defer fr.Close()
+		zipr = &fr.Reader
+	}
 
 	for _, file := range zipr.File {
 		log.Printf("Reading %s from %s", file.Name, u.CitySourceURI)
@@ -122,6 +126,8 @@ func (u updateCommandInput) ReadCities(f func(r City) error) error {
 }
 
 func updateCommand(opts updateCommandInput) {
+	os.Remove(databasePath)
+
 	db, err := openDB()
 	if err != nil {
 		fmt.Println("Error", err)
