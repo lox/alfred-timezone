@@ -99,6 +99,7 @@ func searchTimezones(queryTerms []string) ([]searchResult, error) {
 			return results, err
 		}
 
+		row.CountryName = lookupCountryName(row.Country)
 		matchText := fmt.Sprintf("%s, %s", row.Name, row.CountryName)
 
 		if alfred.MatchesTerms(queryTerms, matchText) {
@@ -107,7 +108,6 @@ func searchTimezones(queryTerms []string) ([]searchResult, error) {
 				return results, err
 			}
 
-			row.CountryName = lookupCountryName(row.Country)
 			row.Location = l
 			results = append(results, row)
 			log.Printf("HIT %s => %+v", row.ID, row)
