@@ -6,7 +6,10 @@ WORKFLOW := Timezone.alfredworkflow
 all: $(BIN) $(WORKFLOW)
 
 $(WORKFLOW): $(FILES)
-	zip -j "$@" $^
+	zip "$@" $^
+
+sqlite.db: $(BIN)
+	./$(BIN) update
 
 $(BIN): $(SOURCES)
 	go build -o $(BIN) $(SOURCES)
